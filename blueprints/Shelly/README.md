@@ -1,8 +1,8 @@
-# 🔘 Shelly BLU Button1 Tough Remote Control
+# 🔘 Shelly BLU Button Tough1 Remote Control
 
 **Blueprint**: [BLU_Button_Tough1.yaml](BLU_Button_Tough1.yaml)
 
-Automate various actions using the Shelly BLU Button1 Tough remote with support for different press types.
+Automate various actions using the Shelly BLU Button Tough1 remote with support for different press types.
 
 ## Features
 
