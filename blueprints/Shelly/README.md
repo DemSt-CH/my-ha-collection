@@ -21,7 +21,7 @@ Automate various actions using the Shelly BLU Button1 Tough remote with support 
 
 ## How to Import
 
-[![Blueprint Import](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint/?blueprint_url=https://github.com/DemSt-CH/my-ha-collection/blob/main/blueprints/Shelly/BLU_Button_Tough1.yaml)
+[![Blueprint Import](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint/?blueprint_url=https://raw.githubusercontent.com/DemSt-CH/my-ha-collection/main/blueprints/Shelly/BLU_Button_Tough1.yaml)
 
 ## Configuration
 

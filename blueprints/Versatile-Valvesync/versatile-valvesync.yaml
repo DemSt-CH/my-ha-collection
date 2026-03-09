@@ -17,7 +17,7 @@ blueprint:
   domain: automation
   homeassistant:
     min_version: 2024.6.0
-  source_url: https://github.com/DemSt-CH/my-ha-collection/blob/main/blueprints/Versatile-Valvesync/versatile-valvesync.yaml
+  source_url: https://raw.githubusercontent.com/DemSt-CH/my-ha-collection/main/blueprints/Versatile-Valvesync/versatile-valvesync.yaml
 
 triggers:
   - minutes: /15

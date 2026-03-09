@@ -28,7 +28,7 @@ blueprint:
   domain: automation
   homeassistant:
     min_version: 2024.6.0
-  source_url: https://github.com/DemSt-CH/my-ha-collection/blob/main/blueprints/Shelly/BLU_Button_Tough1.yaml
+  source_url: https://raw.githubusercontent.com/DemSt-CH/my-ha-collection/main/blueprints/Shelly/BLU_Button_Tough1.yaml
   input:
     button_device:
       name: Shelly BLU Button Tought 1
