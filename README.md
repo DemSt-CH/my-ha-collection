@@ -2,7 +2,7 @@
 
 Welcome to my personal Home Assistant collection! Here I share some of my automations and blueprints that I've developed for my own smart home projects. These works are freely available and are meant to help you make your home smarter.
 
-## � Repository Structure
+## 📂 Repository Structure
 
 Browse the available blueprints and scripts:
 
@@ -12,7 +12,7 @@ Pre-made automation blueprints that can be imported directly into Home Assistant
 ### 📜 [Scripts](scripts/README.md)
 Raw automation scripts and other utilities. These can be copied directly into your Home Assistant configuration or used as templates.
 
-## � Important Note for Blueprint Import
+## 🚨 Important Note for Blueprint Import
 
 **Repository Visibility**: The blueprint import links will only work if this GitHub repository is **public**. If the repository is private, the import buttons will show "Page not found".
 
