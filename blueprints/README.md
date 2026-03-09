@@ -31,10 +31,12 @@ Automate actions using Shelly BLU Button1 Tough remote with support for short, l
 
 ## How to Import
 
-1. Click the **Blueprint Import** button above
-2. Review and confirm the import
+1. Click the **Blueprint Import** button below each blueprint
+2. Review and confirm the import in Home Assistant
 3. Customize inputs as needed (if applicable)
 4. Enable the automation and test it
+
+**Note:** Import links only work if the GitHub repository is public. For private repositories, download the YAML file manually and import it directly in Home Assistant.
 
 ## Back to Main Repository
 

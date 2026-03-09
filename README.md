@@ -12,12 +12,17 @@ Pre-made automation blueprints that can be imported directly into Home Assistant
 ### 📜 [Scripts](scripts/README.md)
 Raw automation scripts and other utilities. These can be copied directly into your Home Assistant configuration or used as templates.
 
-## 🚀 Quick Start
+## � Important Note for Blueprint Import
 
-1. **Browse the Collections**: Check out the [Blueprints](blueprints/README.md) or [Scripts](scripts/README.md) folders
-2. **Click Import**: Use the import buttons to add blueprints directly to Home Assistant
-3. **Customize**: Adapt any automation to your specific devices and needs
-4. **Test**: Enable and test the automation to ensure it works as expected
+**Repository Visibility**: The blueprint import links will only work if this GitHub repository is **public**. If the repository is private, the import buttons will show "Page not found".
+
+**For Private Repositories:**
+1. Download the YAML file manually from GitHub
+2. Copy the content
+3. In Home Assistant: **Settings > Automations & Scenes > Blueprints > Import Blueprint**
+4. Paste the YAML content directly
+
+**For Public Repositories:** The import buttons should work directly from the README pages.
 
 ## 🤝 Contributing
 

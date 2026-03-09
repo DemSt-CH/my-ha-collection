@@ -21,7 +21,13 @@ Automatically synchronizes valve positions for Versatile-Thermostats with the 'v
 
 ## How to Import
 
+**Direct Import (if repository is public):**
 [![Blueprint Import](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint/?blueprint_url=https://raw.githubusercontent.com/DemSt-CH/my-ha-collection/main/blueprints/Versatile-Valvesync/versatile-valvesync.yaml)
+
+**Manual Import (for private repositories):**
+1. Download [versatile-valvesync.yaml](versatile-valvesync.yaml)
+2. In Home Assistant: **Settings > Automations & Scenes > Blueprints > Import Blueprint**
+3. Upload or paste the YAML content
 
 ## Changelog
 
