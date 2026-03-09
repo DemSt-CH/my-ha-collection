@@ -17,8 +17,8 @@ Automatically synchronizes valve positions for Versatile-Thermostats and logs co
 
 ---
 
-### 🔘 [Shelly BLU Button1 Tough Remote Control](Shelly/README.md)
-Automate actions using Shelly BLU Button1 Tough remote with support for short, long, double, and triple press.
+### 🔘 [Shelly BLU Button Tough1 Remote Control](Shelly/README.md)
+Automate actions using Shelly BLU Button Tough1 remote with support for short, long, double, and triple press.
 
 - Support for multiple press types
 - Flexible action configuration
