@@ -1,0 +1,62 @@
+blueprint:
+  name: Versatile-Thermostat Valve Sync & Log
+  description: >
+    Automatically synchronizes valve positions for thermostats with 'vtherm_over_valve' attribute and logs corrections to the Home Assistant logbook.
+    
+    **How it works:**
+    - Runs every 15 minutes
+    - Finds all climate entities with 'vtherm_over_valve' attribute
+    - Syncs underlying valve entities to the target position
+    - Logs any corrections made
+    
+    **Requirements:**
+    - Versatile-Thermostats must have a custom 'vtherm_over_valve' attribute containing 'underlying_entities' list
+    - Valves must be number entities controllable via number.set_value
+    
+    **No user input required** - automatically detects and manages all compatible thermostats.
+  domain: automation
+  homeassistant:
+    min_version: 2024.6.0
+  source_url: https://github.com/DemSt-CH/my-ha-collection/blob/main/blueprints/Versatile-Valvesync/versatile-valvesync.yaml
+
+triggers:
+  - minutes: /15
+    trigger: time_pattern
+actions:
+  - repeat:
+      for_each: |
+        {{ states.climate 
+          | selectattr('attributes.vtherm_over_valve', 'defined')
+          | map(attribute='entity_id') | list }}
+      sequence:
+        - variables:
+            v_attr: "{{ state_attr(repeat.item, 'vtherm_over_valve') }}"
+            ventile: "{{ v_attr.underlying_entities if v_attr is not none else [] }}"
+            soll_pos: "{{ state_attr(repeat.item, 'valve_open_percent') | int(0) }}"
+            vtherm_name: "{{ state_attr(repeat.item, 'friendly_name') }}"
+        - repeat:
+            for_each: "{{ ventile }}"
+            sequence:
+              - variables:
+                  ventil_id: "{{ repeat.item }}"
+                  ist_pos: "{{ states(ventil_id) | int(-1) }}"
+                  ventil_name: >-
+                    {{ state_attr(ventil_id, 'friendly_name') |
+                    default(ventil_id) }}
+              - if:
+                  - condition: template
+                    value_template: |
+                      {{ ist_pos != -1 and (soll_pos - ist_pos) | abs > 1 }}
+                then:
+                  - target:
+                      entity_id: "{{ ventil_id }}"
+                    data:
+                      value: "{{ soll_pos }}"
+                    action: number.set_value
+                  - data:
+                      name: Ventil-Sync
+                      entity_id: "{{ ventil_id }}"
+                      message: >
+                        Correction by {{ vtherm_name }}: Target {{ soll_pos }}%
+                        (was {{ ist_pos }}%)
+                    action: logbook.log

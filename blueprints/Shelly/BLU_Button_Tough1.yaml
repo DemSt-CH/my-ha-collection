@@ -1,0 +1,91 @@
+blueprint:
+  name: Shelly BLU Button Tough 1 Remote-Control (Short, Long, Double Press and Triple Press)
+  description: >
+    Automate actions using the Shelly BLU Button Tough 1 remote with support for different press types.
+    
+    **Features:**
+    - Short press detection and automation
+    - Long press detection and automation
+    - Double press detection and automation
+    - Triple press detection and automation
+    - Flexible action configuration for each press type
+    - Battery status monitoring
+    
+    **How it works:**
+    - Monitors the selected Shelly BLU Button1 Tough device
+    - Triggers different actions based on press type
+    - Supports any Home Assistant action (lights, scenes, scripts, etc.)
+    
+    **Requirements:**
+    - Shelly BLU Button1 Tough remote
+    - bthome integration enabled in Home Assistant
+    - Device must be paired and recognized by HA
+    
+    **Configuration:**
+    - Select your Shelly BLU Button1 Tough device
+    - Configure actions for each press type as needed
+    - Leave unused press types empty
+  domain: automation
+  homeassistant:
+    min_version: 2024.6.0
+  source_url: https://github.com/DemSt-CH/my-ha-collection/blob/main/blueprints/Shelly/BLU_Button_Tough1.yaml
+  input:
+    button_device:
+      name: Shelly BLU Button Tought 1
+      description: Select the Shelly BLU Button1 remote.
+      selector:
+        device:
+          integration: bthome
+          multiple: false
+    button_short:
+      name: Button Short Press Action
+      description: Action when button 1 is short pressed.
+      default: []
+      selector:
+        action: {}
+    button_double:
+      name: Button Double Press Action
+      description: Action when button 1 is double pressed.
+      default: []
+      selector:
+        action: {}
+    button_triple:
+      name: Button Triple Press Action
+      description: Action when button 1 is Triple pressed.
+      default: []
+      selector:
+        action: {}
+    button_long:
+      name: Button Long Press Action
+      description: Action when button 1 is long pressed.
+      default: []
+      selector:
+        action: {}
+trigger:
+- platform: event
+  event_type: bthome_ble_event
+  event_data:
+    device_id: !input button_device
+action:
+- choose:
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.event_class == ''button'' and trigger.event.data.event_type
+        == ''press'' }}'
+    sequence: !input button_short
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.event_class == ''button'' and trigger.event.data.event_type
+        == ''long_press'' }}'
+    sequence: !input button_long
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.event_class == ''button'' and trigger.event.data.event_type
+        == ''double_press'' }}'
+    sequence: !input button_double
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.event_class == ''button'' and trigger.event.data.event_type
+        == ''triple_press'' }}'
+    sequence: !input button_triple
+mode: single
