@@ -22,10 +22,10 @@ Monitors critical switches and sends notifications when they become inactive, wi
 
 ## How to Import
 
-**Direct Import (if repository is public):**
+**Direct Import:**
 [![Blueprint Import](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://github.com/DemSt-CH/my-ha-collection/blob/main/blueprints/Notification/notify_critical-switches.yaml)
 
-**Manual Import (for private repositories):**
+**Manual Import:**
 1. Download [notify_critical-switches.yaml](notify_critical-switches.yaml)
 2. In Home Assistant: **Settings > Automations & Scenes > Blueprints > Import Blueprint**
 3. Upload or paste the YAML content
