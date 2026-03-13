@@ -12,7 +12,7 @@ blueprint:
     - Persistent notification in Home Assistant UI
 
     **How it works:**
-    - Triggers when the critical switches sensor changes
+    - Triggers when the critical switches sensor changes OR when any switch in the group turns off
     - If all switches are OK (sensor = 0), sends all-clear notification
     - If switches are inactive, enters repeat loop with hourly notifications
     - Lists all inactive switches in notification messages
@@ -34,7 +34,7 @@ blueprint:
   input:
     critical_sensor:
       name: Critical Switches Sensor
-      description: Sensor that counts inactive critical switches (should be 0 when all are OK).
+      description: Sensor that counts inactive critical switches (should be 0 when all are OK). Use a template sensor like 'count(expand(group.critical_switches) | selectattr('state', 'ne', 'on'))'.
       selector:
         entity:
           domain: sensor
@@ -68,6 +68,9 @@ triggers:
       hours: 0
       minutes: 0
       seconds: 10
+  - trigger: state
+    entity_id: !input critical_switches_group
+    to: "off"
 actions:
   - if:
       - condition: state

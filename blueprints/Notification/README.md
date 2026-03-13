@@ -2,11 +2,12 @@
 
 **Blueprint**: [notify_critical-switches.yaml](notify_critical-switches.yaml)
 
-Monitors critical switches and sends notifications when they become inactive, with hourly repeat notifications and automatic all-clear.
+Monitors critical switches and sends notifications when they become inactive, with hourly repeat notifications and automatic all-clear. **Triggers immediately when switches are manually turned off.**
 
 ## Features
 
-- ✅ Monitors critical switches sensor for state changes
+- ✅ Monitors critical switches sensor for state changes to "unavailable"
+- ✅ **Triggers immediately when any critical switch is turned off manually**
 - ✅ Sends notifications when switches become inactive
 - ✅ Hourly repeat notifications while issues persist
 - ✅ Automatic all-clear notification when all switches are restored
@@ -45,7 +46,14 @@ template:
   - sensor:
       name: "Active Critical Switches"
       state: >
-        {{ expand('group.critical_switches') | selectattr('state', 'eq', 'on') | list | length }}
+        {% set group_id = 'switch.kritische_schalter' %}
+        {% set exclude = label_entities('no-dboard') %}
+
+        {{ expand(group_id)
+        | rejectattr('entity_id', 'in', exclude)
+        | selectattr('state', 'in', ['off', 'unavailable'])
+        | list 
+        | count }}
 ```
 
 **Switch Group**:
