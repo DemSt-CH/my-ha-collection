@@ -46,9 +46,8 @@ template:
   - sensor:
       name: "Active Critical Switches"
       state: >
-        {% set group_id = 'switch.kritische_schalter' %}
-        {% set exclude = label_entities('no-dboard') %}
-
+        {% set group_id = 'switch.critical_switches' %}
+        
         {{ expand(group_id)
         | rejectattr('entity_id', 'in', exclude)
         | selectattr('state', 'in', ['off', 'unavailable'])
