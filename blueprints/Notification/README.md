@@ -34,8 +34,8 @@ Monitors critical switches and sends notifications when they become inactive, wi
 ## Configuration
 
 After importing, configure the following:
-1. **Critical Switches Sensor**: Select the sensor that counts inactive switches
-2. **Critical Switches Group**: Choose the group containing all switches to monitor
+1. **Critical Switches Sensor**: Select the sensor that counts inactive switches (see example Setup)
+2. **Critical Switches Group**: Choose the switch-group containing all switches to monitor (see example Setup)
 3. **Notification Recipients**: Select who should receive notifications
 4. **Notification Interval**: Set how often to repeat notifications (default: 60 minutes)
 
