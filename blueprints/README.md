@@ -29,6 +29,16 @@ Automate actions using Shelly BLU Button Tough1 remote with support for short, l
 
 ---
 
+### 🔴 [Critical Switch Monitoring & Notification](Notification/README.md)
+Monitor critical switches and send notifications when they become inactive, with hourly repeats and automatic all-clear.
+
+- Monitor switches via sensor
+- Hourly repeat notifications
+- Automatic all-clear when restored
+- Lists inactive switches in messages
+
+[**View Details & Import** →](Notification/README.md)
+
 ## How to Import
 
 1. Click the **Blueprint Import** button below each blueprint

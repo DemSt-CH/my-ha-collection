@@ -1,0 +1,118 @@
+blueprint:
+  name: Critical Switch Monitoring & Notification
+  description: >
+    Monitors critical switches and sends notifications when they become inactive.
+    Includes hourly repeat notifications and automatic all-clear when switches are restored.
+
+    **Features:**
+    - Monitors a group of critical switches
+    - Sends push notifications when switches become inactive
+    - Hourly repeat notifications while issues persist
+    - Automatic all-clear notification when all switches are restored
+    - Persistent notification in Home Assistant UI
+
+    **How it works:**
+    - Triggers when the critical switches sensor changes
+    - If all switches are OK (sensor = 0), sends all-clear notification
+    - If switches are inactive, enters repeat loop with hourly notifications
+    - Lists all inactive switches in notification messages
+
+    **Requirements:**
+    - A sensor that counts inactive critical switches (e.g., template sensor)
+    - A group containing all critical switches to monitor
+    - Notification service configured (push, email, etc.)
+
+    **Configuration:**
+    - Select the critical switches sensor
+    - Choose the critical switches group
+    - Select notification recipients
+    - Set notification interval (default: 60 minutes)
+  domain: automation
+  homeassistant:
+    min_version: 2024.6.0
+  source_url: https://github.com/DemSt-CH/my-ha-collection/blob/main/blueprints/Notification/notify_critical-switches.yaml
+  input:
+    critical_sensor:
+      name: Critical Switches Sensor
+      description: Sensor that counts inactive critical switches (should be 0 when all are OK).
+      selector:
+        entity:
+          domain: sensor
+    critical_switches_group:
+      name: Critical Switches Group
+      description: Group containing all switches to monitor for critical status.
+      selector:
+        entity:
+          domain: group
+    notification_recipients:
+      name: Notification Recipients
+      description: Who should receive the notifications.
+      selector:
+        entity:
+          domain: person
+          multiple: true
+    notification_interval:
+      name: Notification Interval
+      description: How often to repeat notifications while issues persist (in minutes).
+      default: 60
+      selector:
+        number:
+          min: 15
+          max: 480
+          step: 15
+          unit_of_measurement: minutes
+triggers:
+  - trigger: state
+    entity_id: !input critical_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+actions:
+  - if:
+      - condition: state
+        entity_id: !input critical_sensor
+        state: "0"
+    then:
+      - action: notify.notify
+        data:
+          title: ✅ Alles wieder OK
+          message: Alle kritischen Schalter sind wieder EIN.
+          data:
+            tag: critical_alarm
+        target: !input notification_recipients
+      - action: persistent_notification.dismiss
+        data:
+          notification_id: critical_switch_alarm
+    else:
+      - condition: template
+        value_template: "{{ states(!input critical_sensor) | int(0) > 0 }}"
+      - repeat:
+          while:
+            - condition: template
+              value_template: "{{ states(!input critical_sensor) | int(0) > 0 }}"
+          sequence:
+            - variables:
+                defekt_liste: >
+                  {% set gruppe = !input critical_switches_group %} {% set namen =
+                  expand(gruppe) | selectattr('state', 'ne', 'on') |
+                  map(attribute='name') | list %} {{ namen | join('\n- ') }}
+            - action: notify.notify
+              data:
+                title: ⚠️ Kritischer Status
+                message: |-
+                  Folgende Geräte sind inaktiv:
+                  - {{ defekt_liste }}
+                data:
+                  tag: critical_alarm
+              target: !input notification_recipients
+            - action: persistent_notification.create
+              data:
+                title: Kritischer Alarm aktiv
+                message: |-
+                  Geräte prüfen:
+                  - {{ defekt_liste }}
+                notification_id: critical_switch_alarm
+            - delay:
+                minutes: !input notification_interval
+mode: restart
