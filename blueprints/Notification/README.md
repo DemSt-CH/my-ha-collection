@@ -40,7 +40,7 @@ After importing, configure the following:
 
 ## Example Setup
 
-(You can use also the HA-UI for creating this Template-Sensor and the Group)
+(You can use also the HA-UI for creating this Template-Sensor and the Group-Entity)
 
 **Template Sensor** (counts inactive switches):
 ```yaml

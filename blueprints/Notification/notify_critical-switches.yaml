@@ -40,10 +40,11 @@ blueprint:
           domain: sensor
     critical_switches_group:
       name: Critical Switches Group
-      description: Group containing all switches to monitor for critical status.
+      description: Switch-Group containing all switches to monitor for critical status.
       selector:
         entity:
-          domain: group
+          domain: switch          
+          multiple: false
     notification_recipients:
       name: Notification Recipients
       description: Who should receive the notifications.
