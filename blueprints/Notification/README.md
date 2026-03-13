@@ -52,7 +52,6 @@ template:
         {% set group_id = 'switch.critical_switches' %}
         
         {{ expand(group_id)
-        | rejectattr('entity_id', 'in', exclude)
         | selectattr('state', 'in', ['off', 'unavailable'])
         | list 
         | count }}
