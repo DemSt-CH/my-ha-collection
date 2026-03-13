@@ -40,6 +40,8 @@ After importing, configure the following:
 
 ## Example Setup
 
+(You can use also the HA-UI for creating this Template-Sensors)
+
 **Template Sensor** (counts inactive switches):
 ```yaml
 template:
