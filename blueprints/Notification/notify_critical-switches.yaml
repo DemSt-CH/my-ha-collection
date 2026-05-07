@@ -47,10 +47,10 @@ blueprint:
           multiple: false
     notification_recipients:
       name: Notification Recipients
-      description: Who should receive the notifications.
+      description: Notification entities that should receive the alerts.
       selector:
         entity:
-          domain: person
+          domain: notify
           multiple: true
     notification_interval:
       name: Notification Interval
@@ -84,7 +84,8 @@ actions:
           message: Alle kritischen Schalter sind wieder EIN.
           data:
             tag: critical_alarm
-        target: !input notification_recipients
+        target:
+          entity_id: !input notification_recipients
       - service: persistent_notification.dismiss
         data:
           notification_id: critical_switch_alarm
@@ -112,7 +113,8 @@ actions:
                   - {{ defekt_liste }}
                 data:
                   tag: critical_alarm
-              target: !input notification_recipients
+              target:
+                entity_id: !input notification_recipients
             - service: persistent_notification.create
               data:
                 title: Kritischer Alarm aktiv
