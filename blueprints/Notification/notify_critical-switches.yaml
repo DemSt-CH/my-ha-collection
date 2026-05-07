@@ -47,10 +47,10 @@ blueprint:
           multiple: false
     notification_recipients:
       name: Notification Recipients
-      description: Notification entities that should receive the alerts.
+      description: Who should receive the notifications.
       selector:
         entity:
-          domain: notify
+          domain: person
           multiple: true
     notification_interval:
       name: Notification Interval
