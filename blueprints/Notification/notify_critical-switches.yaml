@@ -90,12 +90,14 @@ actions:
         data:
           notification_id: critical_switch_alarm
     else:
-      - condition: template
-        value_template: "{{ states(!input critical_sensor) | int(0) > 0 }}"
+      - condition: numeric_state
+        entity_id: !input critical_sensor
+        above: 0
       - repeat:
           while:
-            - condition: template
-              value_template: "{{ states(!input critical_sensor) | int(0) > 0 }}"
+            - condition: numeric_state
+              entity_id: !input critical_sensor
+              above: 0
           sequence:
             - variables:
                 defekt_liste: >
