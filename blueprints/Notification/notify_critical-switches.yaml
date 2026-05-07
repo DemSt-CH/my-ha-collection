@@ -100,10 +100,11 @@ actions:
               above: 0
           sequence:
             - variables:
+                gruppe: !input critical_switches_group
                 defekt_liste: >
-                  {% set gruppe = !input critical_switches_group %} {% set namen =
-                  expand(gruppe) | selectattr('state', 'ne', 'on') |
-                  map(attribute='name') | list %} {{ namen | join('\n- ') }}
+                  {% set namen = expand(gruppe) | selectattr('state', 'ne', 'on') |
+                  map(attribute='name') | list %}
+                  {{ namen | join('\n- ') }}
             - service: notify.notify
               data:
                 title: ⚠️ Kritischer Status
