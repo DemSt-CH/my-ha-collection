@@ -82,4 +82,3 @@ group:
 ## Back to Blueprints
 
 [← Back to Blueprints](../README.md)</content>
-<parameter name="filePath">c:\_DemSte\my-ha-collection\blueprints\Notification\README.md
